@@ -1,5 +1,3 @@
-#spring.security.oauth2.client.registration.google.client-id=319189106118-nmn2fe1kr2gdg7bi1j6tneci394l63na.apps.googleusercontent.com
-#spring.security.oauth2.client.registration.google.client-secret=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
 
 spring:
   datasource:
@@ -7,17 +5,20 @@ spring:
     username: sa
     password:
     driver-clas-name: org.h2.Driver
+
   h2:
     console:
       enabled: true
 
-security:
-  oauth2:
-    client:
-      client-id: 319189106118-nmn2fe1kr2gdg7bi1j6tneci394l63na.apps.googleusercontent.com
-      client-secret: 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
-      access-token-uri: https://oauth2.googleapis.com/token
-      user-authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-      scope: openid, email
-    resource:
-      user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 319189106118-nmn2fe1kr2gdg7bi1j6tneci394l63na.apps.googleusercontent.com
+            client-secret: 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
+            access-token-uri: https://oauth2.googleapis.com/token
+            user-authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            scope: openid, email
+          resource:
+            user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
