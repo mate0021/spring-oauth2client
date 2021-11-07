@@ -19,6 +19,6 @@ spring:
             client-secret: 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
             access-token-uri: https://oauth2.googleapis.com/token
             user-authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
-            scope: openid, email
+            scope: profile, email
           resource:
             user-info-uri: https://openidconnect.googleapis.com/v1/userinfo

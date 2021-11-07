@@ -13,11 +13,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/allowed", "/a", "/welcome", "/w").permitAll()
-//                .antMatchers("/restricted", "/r").authenticated()
-                .and().logout().invalidateHttpSession(true).deleteCookies().logoutSuccessUrl("/welcome")
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .and().oauth2Login().loginPage("/welcome").defaultSuccessUrl("/loginOk");
+            .antMatchers("/allowed", "/a", "/welcome", "/w", "/").permitAll()
+            .antMatchers("/restricted", "/r").authenticated()
+            .and()
+            .logout().invalidateHttpSession(true).deleteCookies().logoutSuccessUrl("/welcome")
+            .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            .and().oauth2Login().loginPage("/welcome").defaultSuccessUrl("/loginOk");
+
     }
 
     @Override

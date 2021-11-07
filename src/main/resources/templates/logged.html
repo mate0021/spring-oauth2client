@@ -3,7 +3,10 @@
       xmlns:th="http://www.thymeleaf.org">
 
 <body>
-<div>Welcome logged user: <p th:text="${userName}"></p></div>
-<a href="/logout">Logout</a>
+<div>Welcome logged user:
+    <b><p th:text="${userName}"></p></b>
+    <p th:text="${userEmail}"/>
+</div>
+<a th:href="@{/logout}">Logout</a>
 </body>
 </html>
