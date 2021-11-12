@@ -1,0 +1,26 @@
+package rnd.mate00.oauth2client.user;
+
+import lombok.Data;
+import rnd.mate00.oauth2client.provider.OAuth2Provider;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "USER")
+@Data
+public class User {
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Column
+    private String name;
+
+    @Column
+    private String email;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private OAuth2Provider provider;
+}
