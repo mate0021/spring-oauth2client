@@ -4,6 +4,7 @@ import lombok.Data;
 import rnd.mate00.oauth2client.provider.OAuth2Provider;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USER")
@@ -23,4 +24,7 @@ public class DbUser {
     @Column
     @Enumerated(EnumType.STRING)
     private OAuth2Provider provider;
+
+    @Column
+    private LocalDateTime lastLogin;
 }

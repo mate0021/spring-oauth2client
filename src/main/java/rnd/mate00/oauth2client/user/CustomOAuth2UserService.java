@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import rnd.mate00.oauth2client.provider.OAuth2Provider;
 import rnd.mate00.oauth2client.user.repository.UserRepository;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -31,17 +32,28 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         if (dbUser.isEmpty()) {
             registerNewUser(googleUser);
+        } else {
+            updateExisting(dbUser.get(), googleUser);
         }
 
         return googleUser;
     }
 
-    private DbUser registerNewUser(GoogleOAuthUser googleOAuthUser) {
+    private void registerNewUser(GoogleOAuthUser googleOAuthUser) {
+        log.info("Adding new user to local registry");
+        
         DbUser newUser = new DbUser();
         newUser.setProvider(OAuth2Provider.GOOGLE);
         newUser.setName(googleOAuthUser.getName());
         newUser.setEmail(googleOAuthUser.getEmail());
 
-        return userRepository.save(newUser);
+        userRepository.save(newUser);
+    }
+
+    private void updateExisting(DbUser user, GoogleOAuthUser googleOAuthUser) {
+        user.setName(googleOAuthUser.getName());
+        user.setLastLogin(LocalDateTime.now());
+
+        userRepository.save(user);
     }
 }
