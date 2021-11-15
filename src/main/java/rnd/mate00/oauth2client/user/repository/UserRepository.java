@@ -10,5 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<DbUser, Long> {
 
-    Optional<DbUser> findByEmailAndProvider(String name, OAuth2Provider provider);
+    Optional<DbUser> findByEmailAndProvider(String email, OAuth2Provider provider);
 }
