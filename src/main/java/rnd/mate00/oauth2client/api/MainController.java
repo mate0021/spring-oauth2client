@@ -23,9 +23,8 @@ public class MainController {
 
     @GetMapping("/who")
     public String whoAmI(@CurrentLoggedUser OAuth2User user) throws JsonProcessingException {
-        System.out.println(user);
-
         ObjectMapper objectMapper = new ObjectMapper();
+
         return objectMapper.writeValueAsString(user);
     }
 }
