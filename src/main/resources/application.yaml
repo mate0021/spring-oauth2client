@@ -26,3 +26,10 @@ spring:
             scope: profile, email
           resource:
             user-info-uri: https://openidconnect.googleapis.com/v1/userinfo
+
+          github:
+            client-id: 6e15ec5504fe81f29cf7
+            client-secret: 3d2e58da21e633cc786552d44cc17cbcc56b18ec
+            access-token-uri: https://github.com/login/oauth/access_token
+            user-authorization-uri: https://github.com/login/oauth/authorize
+            scope: read:user

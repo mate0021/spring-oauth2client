@@ -27,16 +27,29 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         log.info("Creating user data");
         OAuth2User oAuth2User = super.loadUser(userRequest);
 
-        GoogleOAuthUser googleUser = new GoogleOAuthUser(oAuth2User);
-        Optional<DbUser> dbUser = userRepository.findByEmailAndProvider(googleUser.getEmail(), OAuth2Provider.GOOGLE);
+        if ("github".equals(userRequest.getClientRegistration().getRegistrationId())) {
+            GitHubUser gitHubUser = new GitHubUser(oAuth2User);
 
-        if (dbUser.isEmpty()) {
-            registerNewUser(googleUser);
+            DbUser newUser = new DbUser();
+            newUser.setProvider(OAuth2Provider.GITHUB);
+            newUser.setName(gitHubUser.getName());
+            newUser.setEmail(gitHubUser.getEmail());
+            userRepository.save(newUser);
+
+            return gitHubUser;
+
         } else {
-            updateExisting(dbUser.get(), googleUser);
-        }
+            GoogleOAuthUser googleUser = new GoogleOAuthUser(oAuth2User);
+            Optional<DbUser> dbUser = userRepository.findByEmailAndProvider(googleUser.getEmail(), OAuth2Provider.GOOGLE);
 
-        return googleUser;
+            if (dbUser.isEmpty()) {
+                registerNewUser(googleUser);
+            } else {
+                updateExisting(dbUser.get(), googleUser);
+            }
+
+            return googleUser;
+        }
     }
 
     private void registerNewUser(GoogleOAuthUser googleOAuthUser) {
