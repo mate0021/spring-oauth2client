@@ -10,7 +10,7 @@ import rnd.mate00.oauth2client.business.repository.PurchaseOrderRepository;
 import rnd.mate00.oauth2client.provider.OAuth2Provider;
 import rnd.mate00.oauth2client.user.CurrentLoggedUser;
 import rnd.mate00.oauth2client.user.DbUser;
-import rnd.mate00.oauth2client.user.GoogleOAuthUser;
+import rnd.mate00.oauth2client.user.GoogleUser;
 import rnd.mate00.oauth2client.user.repository.UserRepository;
 
 @Controller
@@ -33,7 +33,7 @@ public class PurchaseController {
 
     @PostMapping("/addPurchase")
     public String addPurchase(@ModelAttribute PurchaseDto purchaseDto, @CurrentLoggedUser OAuth2User currentUser) {
-        GoogleOAuthUser user = (GoogleOAuthUser) currentUser;
+        GoogleUser user = (GoogleUser) currentUser;
         DbUser dbUser = userRepository.findByEmailAndProvider(user.getEmail(), OAuth2Provider.GOOGLE).orElseThrow();
 
         PurchaseOrder purchase = new PurchaseOrder();
