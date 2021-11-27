@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import rnd.mate00.oauth2client.business.PurchaseOrder;
 import rnd.mate00.oauth2client.business.repository.PurchaseOrderRepository;
 import rnd.mate00.oauth2client.provider.OAuth2Provider;
+import rnd.mate00.oauth2client.user.AbstractOAuthUser;
 import rnd.mate00.oauth2client.user.CurrentLoggedUser;
 import rnd.mate00.oauth2client.user.DbUser;
 import rnd.mate00.oauth2client.user.GoogleUser;
@@ -32,9 +33,8 @@ public class PurchaseController {
     }
 
     @PostMapping("/addPurchase")
-    public String addPurchase(@ModelAttribute PurchaseDto purchaseDto, @CurrentLoggedUser OAuth2User currentUser) {
-        GoogleUser user = (GoogleUser) currentUser;
-        DbUser dbUser = userRepository.findByEmailAndProvider(user.getEmail(), OAuth2Provider.GOOGLE).orElseThrow();
+    public String addPurchase(@ModelAttribute PurchaseDto purchaseDto, @CurrentLoggedUser AbstractOAuthUser currentUser) {
+        DbUser dbUser = userRepository.findByEmailAndProvider(currentUser.getEmail(), currentUser.getProvider()).orElseThrow();
 
         PurchaseOrder purchase = new PurchaseOrder();
         purchase.setUser(dbUser);
