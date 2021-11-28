@@ -23,6 +23,9 @@ public class DbUser {
     private String name;
 
     @Column
+    private String password;
+
+    @Column
     private String email;
 
     @Column
